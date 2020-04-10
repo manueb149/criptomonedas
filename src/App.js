@@ -44,6 +44,7 @@ function App() {
   
   // State para Spinner
   const [ spinner, setSpinner ] = useState(false);
+  const [ badSearch, setBadSearch ] = useState(false);
 
   useEffect(() =>{
 
@@ -53,10 +54,21 @@ function App() {
     
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cripto}&tsyms=${moneda}`;
       const resultado = await axios.get(url);
-      guardarResultado(resultado.data.DISPLAY[cripto][moneda]);
+      if(resultado.data.DISPLAY == null){
+        console.log('error');
+        // eslint-disable-next-line
+        setBadSearch(true);
+        return;
+      }else{
+        // eslint-disable-next-line
+        setBadSearch(false);
+        console.log(resultado.data.DISPLAY[cripto][moneda]);
+        guardarResultado(resultado.data.DISPLAY[cripto][moneda]);
+      };
     }
     cotizar();
-  }, [moneda, cripto]);
+    // eslint-disable-next-line
+  }, [cripto]);
 
   return (
     <Contenedor>
@@ -74,10 +86,12 @@ function App() {
           guardarMoneda={guardarMoneda}
           guardarCripto={guardarCripto}
           setSpinner={setSpinner}
+          badSearch={badSearch}
         />
         <Cotizacion
           resultado={resultado}
           spinner={spinner}
+          badSearch={badSearch}
         />
       </div>
     </Contenedor>

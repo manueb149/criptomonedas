@@ -25,7 +25,7 @@ const Boton = styled.input`
     }
 `;
 
-const Formulario = ({guardarMoneda, guardarCripto, setSpinner}) => {
+const Formulario = ({guardarMoneda, guardarCripto, setSpinner, badSearch}) => {
 
     // State para cripto monedas
     const [ listaCripto, setListaCripto ] = useState([]);
@@ -87,6 +87,7 @@ const Formulario = ({guardarMoneda, guardarCripto, setSpinner}) => {
             onSubmit={handleSubmit}
         >
             {error ? <Error error='Favor llenar ambos campos' /> : null}
+            {badSearch ? <Error error="Hubo un error en la consulta" /> : null}
             <SeleccionarMoneda />
             <SeleccionarCripto />
             <Boton

@@ -21,9 +21,9 @@ const Precio = styled.p`
     font-size: 25px;
 `;
 
-const Cotizacion = ({resultado, spinner}) => {
+const Cotizacion = ({resultado, spinner, badSearch}) => {
 
-    if(Object.keys(resultado).length === 0) return null;
+    if(Object.keys(resultado).length === 0 || badSearch) return null;
 
     if(spinner){
         return(
