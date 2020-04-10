@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import styled from '@emotion/styled';
 
 const Label = styled.label`
@@ -20,7 +20,7 @@ const Select = styled.select`
     font-weight: bold;
 `;
 
-const useMoneda = (label, stateInicial, opciones) => {
+const useCripto = (label, stateInicial, opciones) => {
 
     // State de nuestro custom hook
     const [state, setState] = useState(stateInicial);
@@ -33,13 +33,21 @@ const useMoneda = (label, stateInicial, opciones) => {
                 value={state}
             >
                 <option value="">-- Seleccionar --</option>
-                {opciones.map(moneda => (
-                    <option key={moneda.codigo} value={moneda.codigo}>{moneda.nombre}</option>
-                ))}
+                {(opciones.length > 1)
+                    ?
+                        opciones.map(moneda => (
+                            <option
+                                key={moneda.CoinInfo.Id}
+                                value={moneda.CoinInfo.Name}
+                            >{moneda.CoinInfo.FullName}</option>
+                        ))
+                    :
+                        null
+                }
             </Select>
         </Fragment>
     );
     return [state, Seleccionar, setState];
 }
  
-export default useMoneda;
+export default useCripto;
